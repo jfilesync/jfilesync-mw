@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'jfilesync-mw'
+include 'jfsmw-core'
+include 'jfsmw-core.ui'
+include 'jfsmw-app'

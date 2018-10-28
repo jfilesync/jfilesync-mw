@@ -9,5 +9,7 @@
 
 rootProject.name = 'jfilesync-mw'
 include 'jfsmw-core'
+include 'jfsmw-core.impl'
 include 'jfsmw-core.ui'
+include 'jfsmw-core.ui.impl'
 include 'jfsmw-app'

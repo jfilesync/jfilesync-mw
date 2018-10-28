@@ -14,20 +14,7 @@ plugins {
     id 'application'
 }
 
-ext.moduleName = 'jfsmw.core.app'
-
-// Define the main class for the application
-mainClassName = 'net.jfilesync.jfsmw.app.App'
-
-dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    runtimeOnly project(':jfsmw-core')
-    runtimeOnly project(':jfsmw-core.ui')
-    runtimeOnly 'com.google.guava:guava:26.0-jre'
-
-    // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
-}
+import java.util.regex.Matcher
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -35,3 +22,53 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+ext.moduleName = 'net.jfilesync.jfsmw.core.app'
+
+dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
+    runtimeOnly project(':jfsmw-core')
+    implementation project(':jfsmw-core.ui')
+    runtimeOnly 'com.google.guava:guava:26.0-jre'
+
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+}
+
+// tag::run[]
+// Define the main class for the application
+mainClassName = "$moduleName/net.jfilesync.jfsmw.app.App" // <1>
+
+run {
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        jvmArgs = [
+                '--module-path', classpath.asPath,
+                '--module', mainClassName // <2>
+        ]
+        classpath = files()
+    }
+}
+// end::run[]
+
+// tag::startScripts[]
+startScripts {
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        classpath = files()
+        defaultJvmOpts = [
+                '--module-path', 'APP_HOME_LIBS',  // <1>
+                '--module', mainClassName
+        ]
+    }
+    doLast{
+        def bashFile = new File(outputDir, applicationName)
+        String bashContent = bashFile.text
+        bashFile.text = bashContent.replaceFirst('APP_HOME_LIBS', Matcher.quoteReplacement('$APP_HOME/lib'))
+
+        def batFile = new File(outputDir, applicationName + ".bat")
+        String batContent = batFile.text
+        batFile.text = batContent.replaceFirst('APP_HOME_LIBS', Matcher.quoteReplacement('%APP_HOME%\\lib'))
+    }
+}
+// end::startScripts[]

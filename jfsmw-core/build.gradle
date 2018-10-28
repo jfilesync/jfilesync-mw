@@ -11,7 +11,14 @@ plugins {
     id 'java-library'
 }
 
-ext.moduleName = 'jfsmw.core'
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+ext.moduleName = 'net.jfilesync.jfsmw.core'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -24,9 +31,3 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-// In this section you declare where to find the dependencies of your project
-repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}

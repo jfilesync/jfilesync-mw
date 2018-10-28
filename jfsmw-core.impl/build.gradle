@@ -18,7 +18,7 @@ repositories {
     jcenter()
 }
 
-ext.moduleName = 'net.jfilesync.jfsmw.core.ui'
+ext.moduleName = 'net.jfilesync.jfsmw.core.impl'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -27,7 +27,14 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:26.0-jre'
 
-    implementation project(':jfsmw-core')
+    api 'javax.xml.bind:jaxb-api:2.3.+'
+    api 'com.sun.xml.bind:jaxb-core:2.3.+'
+    api 'com.sun.xml.bind:jaxb-impl:2.3.+'
+    api 'javax.activation:javax.activation-api:1.2.+'
+    api 'org.slf4j:slf4j-simple:1.8.0-beta2'
+
+
+    api project(':jfsmw-core')
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

@@ -14,14 +14,16 @@ plugins {
     id 'application'
 }
 
+ext.moduleName = 'jfsmw.core.app'
+
 // Define the main class for the application
 mainClassName = 'net.jfilesync.jfsmw.app.App'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:23.0'
-    compile project(':jfsmw-core')
-    compile project(':jfsmw-core.ui')
+    runtimeOnly project(':jfsmw-core')
+    runtimeOnly project(':jfsmw-core.ui')
+    runtimeOnly 'com.google.guava:guava:26.0-jre'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

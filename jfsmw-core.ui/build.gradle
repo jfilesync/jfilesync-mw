@@ -29,6 +29,7 @@ dependencies {
 
     implementation project(':jfsmw-core')
 
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }

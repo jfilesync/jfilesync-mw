@@ -6,8 +6,19 @@
  * user guide available at https://docs.gradle.org/4.8/userguide/tutorial_java_projects.html
  */
 
-plugins {
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.gradle:osdetector-gradle-plugin:1.6.0'
+    }
 }
+
+apply plugin: 'com.google.osdetector'
+
+ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+
 
 subprojects {
     afterEvaluate {

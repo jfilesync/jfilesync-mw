@@ -30,6 +30,10 @@ dependencies {
     implementation project(':jfsmw-core')
     implementation project(':jfsmw-core.ui')
 
+    api "org.openjfx:javafx-base:11:$platform"
+    api "org.openjfx:javafx-graphics:11:$platform"
+    api "org.openjfx:javafx-controls:11:$platform"
+    
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }

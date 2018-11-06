@@ -25,7 +25,8 @@ dependencies {
 //    api 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:26.0-jre'
+    implementation "com.google.inject:guice:${guice_version}"
+    implementation "com.google.guava:guava:${guava_version}"
 
     api 'javax.xml.bind:jaxb-api:2.3.+'
     api 'com.sun.xml.bind:jaxb-core:2.3.+'

@@ -30,7 +30,10 @@ dependencies {
     runtimeOnly project(':jfsmw-core')
     implementation project(':jfsmw-core.ui')
     implementation project(':jfsmw-core.ui.impl')
-    runtimeOnly 'com.google.guava:guava:26.0-jre'
+    implementation project(':jfsmw-core')
+    implementation project(':jfsmw-core.impl')
+    implementation "com.google.inject:guice:${guice_version}"
+    implementation "com.google.guava:guava:${guava_version}"
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

@@ -1,7 +1,7 @@
-package net.jfilesync.jfsmw.core.ui;
+package net.jfilesync.jfsmw.core.event;
 
 /**
  * @author Christoph Graupner <ch.graupner@workingdeveloper.net>
  */
-public class UiManager {
+public interface JfsMwEvent {
 }

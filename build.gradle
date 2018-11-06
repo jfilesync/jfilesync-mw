@@ -17,7 +17,11 @@ buildscript {
 
 apply plugin: 'com.google.osdetector'
 
-ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+ext {
+    platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+    guice_version='4.2.+:no_aop'
+    guava_version='26.0-jre'
+}
 
 
 subprojects {
@@ -70,6 +74,6 @@ subprojects {
                 classpath = files()
             }
         }
-        
+
     }
 }

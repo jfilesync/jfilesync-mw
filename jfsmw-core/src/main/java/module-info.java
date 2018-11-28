@@ -18,6 +18,7 @@ module net.jfilesync.jfsmw.core {
 
   requires com.google.common;
   requires com.google.guice;
+  requires io.reactivex.rxjava2;
 
   provides com.google.inject.AbstractModule with net.jfilesync.jfsmw.core.bundle.JfsMwCoreGuiceModule;
   provides JfsMwAppBundle with JfsMwCoreAppBundle;

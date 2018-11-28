@@ -10,10 +10,10 @@ module net.jfilesync.jfsmw.core.impl {
   requires java.xml.bind;
   requires jaxb.core;
   requires org.slf4j;
+  requires io.reactivex.rxjava2;
 
   provides com.google.inject.AbstractModule with JfsMwCoreImplGuiceModule;
   provides net.jfilesync.jfsmw.core.bundle.JfsMwAppBundle with net.jfilesync.jfsmw.core.impl.bundle.JfsMwCoreImplAppBundle;
 
   opens net.jfilesync.jfsmw.core.impl.bundle to com.google.guice;
-
 }

@@ -46,11 +46,20 @@ mainClassName = "$moduleName/net.jfilesync.jfsmw.app.App" // <1>
 run {
     inputs.property("moduleName", moduleName)
     doFirst {
-        jvmArgs = [
+        def args = [
                 '--module-path', classpath.asPath,
                 '--module', mainClassName // <2>
         ]
         classpath = files()
+        if (System.getProperty('DEBUG', 'false') == 'true') {
+            print("JUHU")
+            args.addAll(0, [
+                    '-Xdebug',
+                    '-agentlib:jdwp=transport=dt_socket,server=n,address=aurora-lm:5005,suspend=y'
+            ])
+        }
+        jvmArgs = args
+        println jvmArgs
     }
 }
 // end::run[]
@@ -65,7 +74,7 @@ startScripts {
                 '--module', mainClassName
         ]
     }
-    doLast{
+    doLast {
         def bashFile = new File(outputDir, applicationName)
         String bashContent = bashFile.text
         bashFile.text = bashContent.replaceFirst('APP_HOME_LIBS', Matcher.quoteReplacement('$APP_HOME/lib'))

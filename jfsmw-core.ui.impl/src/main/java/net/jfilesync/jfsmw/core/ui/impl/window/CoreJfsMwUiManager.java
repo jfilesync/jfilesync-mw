@@ -9,7 +9,9 @@ import net.jfilesync.jfsmw.core.event.EventManager;
 import net.jfilesync.jfsmw.core.ui.JfsMwUiManager;
 import net.jfilesync.jfsmw.core.ui.event.UiCreatedEvent;
 import net.jfilesync.jfsmw.core.ui.impl.internal.FxApplication;
+import net.jfilesync.jfsmw.core.ui.menu.JfsMwMenuManager;
 
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
@@ -20,19 +22,12 @@ import java.util.concurrent.RunnableFuture;
  */
 public class CoreJfsMwUiManager implements JfsMwUiManager {
 
-  @Inject
-  Injector injector;
-
-  @Inject UiCreator uiCreator;
-
-  @Inject EventManager    eventBus;
-  private ForkJoinTask<?> fxAppTask;
-  private Thread          fxApplicationThread;
-
-  @Override
-  public Stage getPrimaryStage() {
-    return FxApplication.getInstance().getPrimaryStage();
-  }
+  @Inject EventManager     eventBus;
+  @Inject Injector         injector;
+  @Inject JfsMwMenuManager menuManager;
+  @Inject UiCreator        uiCreator;
+  private ForkJoinTask<?>  fxAppTask;
+  private Thread           fxApplicationThread;
 
   @Override
   public Application getApplication() {
@@ -40,11 +35,8 @@ public class CoreJfsMwUiManager implements JfsMwUiManager {
   }
 
   @Override
-  public void show() {
-    final Stage primaryStage = getPrimaryStage();
-    if (primaryStage != null) {
-      runInUiThread(primaryStage::show);
-    }
+  public Stage getPrimaryStage() {
+    return FxApplication.getInstance().getPrimaryStage();
   }
 
   @Override
@@ -64,6 +56,19 @@ public class CoreJfsMwUiManager implements JfsMwUiManager {
   public RunnableFuture<Void> runInUiThread(final Runnable runnable) {
     Platform.runLater(runnable);
     return null;
+  }
+
+  @Override
+  public void show() {
+    final Stage primaryStage = getPrimaryStage();
+    if (primaryStage != null) {
+      runInUiThread(primaryStage::show);
+    }
+  }
+
+  @Override
+  public void shutdown() {
+    Platform.exit();
   }
 
   @Override
@@ -92,16 +97,17 @@ public class CoreJfsMwUiManager implements JfsMwUiManager {
     }
 
     runInUiThread(() -> {
-      uiCreator.create(getPrimaryStage());
-      eventBus.post(new UiCreatedEvent());
+      try {
+        uiCreator.create(getPrimaryStage());
+      } catch (Exception e) {
+        Arrays.stream(e.getStackTrace())
+              .forEach(System.err::println);
+      }
+
+      eventBus.forEvent(UiCreatedEvent.class).post(new UiCreatedEvent());
       Platform.setImplicitExit(true);
       show();
     });
-  }
-
-  @Override
-  public void shutdown() {
-    Platform.exit();
   }
 
   @Override

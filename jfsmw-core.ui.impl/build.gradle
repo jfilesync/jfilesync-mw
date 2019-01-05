@@ -34,6 +34,7 @@ dependencies {
     api "org.openjfx:javafx-base:11:$platform"
     api "org.openjfx:javafx-graphics:11:$platform"
     api "org.openjfx:javafx-controls:11:$platform"
+    api "org.openjfx:javafx-fxml:11:$platform"
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

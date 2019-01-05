@@ -13,6 +13,7 @@ module net.jfilesync.jfsmw.core.ui.impl {
   requires javafx.base;
   requires javafx.controls;
   requires javafx.graphics;
+  requires javafx.fxml;
 
 //  provides net.jfilesync.jfsmw.core.ui.JfsMwUiManager with net.jfilesync.jfsmw.core.ui.impl.CoreJfsMwUiManager;
 //  provides net.jfilesync.jfsmw.core.ui.common.UiSystem with net.jfilesync.jfsmw.core.ui.impl.CoreJfsMwUiManager;
@@ -21,4 +22,5 @@ module net.jfilesync.jfsmw.core.ui.impl {
 
   opens net.jfilesync.jfsmw.core.ui.impl.window to com.google.guice;
   opens net.jfilesync.jfsmw.core.ui.impl.bundle to com.google.guice;
+  opens net.jfilesync.jfsmw.core.ui.impl.menu to com.google.guice;
 }

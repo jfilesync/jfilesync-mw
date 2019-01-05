@@ -12,6 +12,7 @@ module net.jfilesync.jfsmw.core.ui {
   exports net.jfilesync.jfsmw.core.ui;
   exports net.jfilesync.jfsmw.core.ui.common;
   exports net.jfilesync.jfsmw.core.ui.event;
+  exports net.jfilesync.jfsmw.core.ui.menu;
 
   provides net.jfilesync.jfsmw.core.bundle.JfsMwAppBundle with net.jfilesync.jfsmw.core.ui.bundle.JfsMwCoreUiAppBundle;
   provides com.google.inject.AbstractModule with net.jfilesync.jfsmw.core.ui.bundle.JfsMwCoreUiGuiceModule;

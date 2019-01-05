@@ -15,6 +15,7 @@ module net.jfilesync.jfsmw.core {
   exports net.jfilesync.jfsmw.core.exception;
   exports net.jfilesync.jfsmw.core.event;
   exports net.jfilesync.jfsmw.core.bundle;
+  exports net.jfilesync.jfsmw.core;
 
   requires com.google.common;
   requires com.google.guice;
